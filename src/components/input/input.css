@@ -1,0 +1,20 @@
+.inputLabel {
+    font-family: Cairo;
+    font-weight: 400;
+}
+.inputContainer {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.inputBox{
+    border: none;
+    border-radius: 3px;
+    border-width:1px;
+    border-style: solid;
+    border:1px solid #cccccc;
+    -moz-box-shadow:    0px 0px 0px 0px #ccc;
+    -webkit-box-shadow: 0px 0px 0px 0px #ccc;
+    box-shadow:         1px 2px 1px 5px #ccc;
+}
