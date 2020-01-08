@@ -27,3 +27,53 @@
     font-weight: 900;
     src: local('Cairo'), url(./fonts/Cairo-Black.ttf) format('truetype');
 }
+
+@font-face {
+  font-family: 'CamphorPro-Heavy';
+  src: local('Cairo'), url(./fonts/CamphorPro-Heavy.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorPro-HeavyItalic';
+  src: local('Cairo'), url(./fonts/CamphorPro-HeavyItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorPro-Italic';
+  src: local('Cairo'), url(./fonts/CamphorPro-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorPro-Light';
+  src: local('Cairo'), url(./fonts/CamphorPro-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorPro-LightItalic';
+  src: local('Cairo'), url(./fonts/CamphorPro-LightItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorPro-MediumItalic';
+  src: local('Cairo'), url(./fonts/CamphorPro-MediumItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorPro-Regular';
+  src: local('Cairo'), url(./fonts/CamphorPro-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorStd-Bold';
+  src: local('Cairo'), url(./fonts/CamphorStd-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorStd-BoldItalic';
+  src: local('Cairo'), url(./fonts/CamphorStd-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'CamphorStd-Light';
+  src: local('Cairo'), url(./fonts/CamphorStd-Light.ttf) format('truetype');
+}
