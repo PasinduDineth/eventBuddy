@@ -1,0 +1,33 @@
+.navBarMain{
+    background-color: rgb(80, 205, 255);
+}
+
+.navBarLogo{
+    color: #fff !important;
+    font-family: Cairo;
+    font-weight: 600 !important;
+    /* font-size: 25px; */
+}
+.navItem{
+    color: #fff !important;
+    font-family: Cairo;
+    font-weight: 400 !important;
+    font-size: 15px;
+    align-self: center;
+}
+.navItem:hover{
+    font-family: Cairo;
+    font-weight: 600 !important;
+}
+.pkgListHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.pkgListHeaderContent{
+    font-family: Cairo;
+    font-weight: 600 !important;
+}
+.fontx{
+    font-family: CamphorPro-Regular;
+}
