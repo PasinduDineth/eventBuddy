@@ -1,8 +1,11 @@
 import React from 'react';
-import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavLink,Jumbotron,NavbarText} from 'reactstrap';
+import {Collapse,Navbar,Button,NavbarToggler,NavbarBrand,Nav,NavItem,NavLink,Jumbotron,NavbarText, Table} from 'reactstrap';
 import "./home.css"
 import { Icon } from 'react-icons-kit'
 import {exit} from 'react-icons-kit/icomoon/exit'
+import {pencilSquareO} from 'react-icons-kit/fa/pencilSquareO'
+import {eye} from 'react-icons-kit/fa/eye'
+import {timesRectangle} from 'react-icons-kit/fa/timesRectangle'
 class homeView extends React.Component {
     constructor(props) {
         super(props);
@@ -23,26 +26,36 @@ class homeView extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar>
-                            <NavItem>
-                            <NavLink href="/" className="navItem">Packages List</NavLink>
-                            </NavItem>
-                            <NavItem>
-                            <NavLink className="navItem" href="/">Add New Package</NavLink>
-                            </NavItem>
                         </Nav>
                         <NavbarText className="navItem" href="/">Logout<Icon icon={exit} className="ml-2" /></NavbarText>
                     </Collapse>
                 </Navbar>
                 <Jumbotron className="ml-4 mr-4">
-                    <p className="lead font">Packages List</p>
-                    {/* <hr className="my-2" /> */}
-                    <div className="pkgListHeader px-3">
-                        <div><p className="pkgListHeaderContent">Package Name</p></div>
-                        <div><p className="pkgListHeaderContent">Added Date</p></div>
-                        <div><p className="pkgListHeaderContent">Package Price</p></div>
-                        <div><p className="pkgListHeaderContent">Package Info</p></div>
-                        <div><p className="pkgListHeaderContent">Action</p></div>
+                    <div style={{display:"flex", flex: 1, justifyContent: "space-between", alignItems: "center"}}>
+                        <p className="lead font">Packages List</p>
+                        <Button className="addPackageButton" color="primary" size="sm" >Add New Package</Button>
                     </div>
+                    <Table >
+                        <thead>
+                            <tr>
+                            <th className="fontTableHead">Package Name</th>
+                            <th className="fontTableHead">Unique Code</th>
+                            <th className="fontTableHead">Price</th>
+                            <th className="fontTableHead">Added date</th>
+                            <th className="fontTableHead">Status</th>
+                            <th className="fontTableHead"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td className="fontTableData">Banquet Menu - Gold</td>
+                            <td className="fontTableData">banq01</td>
+                            <td className="fontTableData">2019-03-11</td>
+                            <td className="fontTableData">Active</td>
+                            <td><div><Icon icon={pencilSquareO} /><Icon icon={eye} className="ml-2" /><Icon icon={timesRectangle} className="ml-2" /></div></td>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </Jumbotron>
             </div>
          );

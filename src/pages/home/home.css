@@ -31,3 +31,33 @@
 .fontx{
     font-family: CamphorPro-Regular;
 }
+.fontTableHead{
+    font-family: Cairo;
+    font-weight: 600;
+}
+.fontTableData{
+    font-family: Cairo;
+    font-weight: 400;
+}
+
+.addPackageButton {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(80, 205, 255);
+    border-color: rgb(80, 205, 255);
+}
+.addPackageButton:hover {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(13, 173, 236);
+    border-color: rgb(13, 173, 236);
+}
+.addPackageButton:focus {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(80, 205, 255);
+    border-color: rgb(80, 205, 255);
+}
