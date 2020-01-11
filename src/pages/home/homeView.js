@@ -15,7 +15,8 @@ class homeView extends React.Component {
         this.state = { 
             isOpen: false,
             isModalopen: false,
-            dateValue:""
+            dateValue:"",
+            imagePreviewValue: ""
             }
     }
     toggle=()=> {
@@ -34,12 +35,17 @@ class homeView extends React.Component {
             dateValue: momentObj.format('YYYY-MM-DD')
         })
     }
+    onImagePickerChange=(arg)=> {
+        this.setState({
+            imagePreviewValue: URL.createObjectURL(arg.target.files[0])
+        })        
+    }
     generateImageUploadComponent() {
         return (
             <div style={{display: "flex", flexDirection: "column"}}>
-                <img src="https://www.wesaturate.com/public/images/upload-placeholder.svg" style={{width: 150}} />
+                <img src={this.state.imagePreviewValue ? this.state.imagePreviewValue : "https://www.wesaturate.com/public/images/upload-placeholder.svg"}  style={{width: 150, objectFit: "cover", borderRadius: 5}} />
                     <label class="btnBrowse">
-                    Browse <input type="file" style={{display: "none"}} size="sm" />
+                    Browse <input type="file" style={{display: "none"}} onChange={this.onImagePickerChange} size="sm" />
                     </label>
             </div>
         )
