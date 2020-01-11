@@ -16,7 +16,7 @@ class homeView extends React.Component {
             isOpen: false,
             isModalopen: false,
             dateValue:"",
-            imagePreviewValue: ""
+            imagePreview: []
             }
     }
     toggle=()=> {
@@ -35,17 +35,27 @@ class homeView extends React.Component {
             dateValue: momentObj.format('YYYY-MM-DD')
         })
     }
-    onImagePickerChange=(arg)=> {
+    onImagePickerChange=(i)=>(arg)=> {
+        const obj = {pickerNumber: i, value: URL.createObjectURL(arg.target.files[0])}
+        var addedImagesToArray = this.state.imagePreview.concat(obj);
         this.setState({
-            imagePreviewValue: URL.createObjectURL(arg.target.files[0])
+            imagePreview: addedImagesToArray
         })        
     }
-    generateImageUploadComponent() {
+    getPreviewImage=(i)=>{
+        const [image] = this.state.imagePreview.filter(el =>el.pickerNumber === i)
+        if(image) {
+            return image.value
+        } else {
+            return "https://www.wesaturate.com/public/images/upload-placeholder.svg"
+        }
+    }
+    generateImageUploadComponent=(i)=> {
         return (
             <div style={{display: "flex", flexDirection: "column"}}>
-                <img src={this.state.imagePreviewValue ? this.state.imagePreviewValue : "https://www.wesaturate.com/public/images/upload-placeholder.svg"}  style={{width: 150, objectFit: "cover", borderRadius: 5}} />
+                <img src={this.getPreviewImage(i) ? this.getPreviewImage(i) : "https://www.wesaturate.com/public/images/upload-placeholder.svg"}  style={{width: 150, objectFit: "cover", borderRadius: 5}} />
                     <label class="btnBrowse">
-                    Browse <input type="file" style={{display: "none"}} onChange={this.onImagePickerChange} size="sm" />
+                    Browse <input type="file" style={{display: "none"}} onChange={this.onImagePickerChange(i)} size="sm" />
                     </label>
             </div>
         )
@@ -122,7 +132,7 @@ class homeView extends React.Component {
                                 {Array.apply(null, { length: 4 }).map((e, i) => 
                                 { return (
                                     <div style={{display: "inline-block", margin: 10}}>
-                                        {this.generateImageUploadComponent()}
+                                        {this.generateImageUploadComponent(i)}
                                     </div>
                                     )}
                             )}
