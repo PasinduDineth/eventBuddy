@@ -1,22 +1,154 @@
 import React from 'react';
-import {Collapse,Navbar,Button,NavbarToggler,NavbarBrand,Nav,NavItem,NavLink,Jumbotron,NavbarText, Table} from 'reactstrap';
+import {Collapse,Navbar,Button,Form,Card, FormGroup,NavbarToggler,CustomInput,NavbarBrand,Nav,Label, Input,Jumbotron,NavbarText, Table} from 'reactstrap';
 import "./home.css"
 import { Icon } from 'react-icons-kit'
 import {exit} from 'react-icons-kit/icomoon/exit'
 import {pencilSquareO} from 'react-icons-kit/fa/pencilSquareO'
 import {eye} from 'react-icons-kit/fa/eye'
 import {timesRectangle} from 'react-icons-kit/fa/timesRectangle'
+import  Modal  from "../../components/modal/modal"
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import moment from 'moment';
 class homeView extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            isOpen: false
-         }
+            isOpen: false,
+            isModalopen: false,
+            dateValue:""
+            }
     }
     toggle=()=> {
         this.setState({
             isOpen: !this.state.isOpen
         })
+    }
+    toggleModal=()=> {
+        this.setState({
+            isModalopen: !this.state.isModalopen
+        })
+    }
+    onApply=(event, picker)=>{
+        var momentObj = moment(picker.startDate)
+        this.setState({
+            dateValue: momentObj.format('YYYY-MM-DD')
+        })
+    }
+    generateImageUploadComponent() {
+        return (
+            <div style={{display: "flex", flexDirection: "column"}}>
+                <img src="https://www.wesaturate.com/public/images/upload-placeholder.svg" style={{width: 150}} />
+                    <label class="btnBrowse">
+                    Browse <input type="file" style={{display: "none"}} size="sm" />
+                    </label>
+            </div>
+        )
+    }
+    generateModalHead=(modalType) => ()=> {               
+        switch(modalType) {
+            case "ADD":
+                return (
+                    <span className="fontTableData">Add Package</span>
+                )
+            break;
+            case "VIEW":
+                return (
+                    <span>View Package</span>
+                )
+            break;
+            case "EDIT":
+                return (
+                    <span>Edit Package</span>
+                )
+            break;
+              case "REMOVE":
+                return (
+                    <span>Remove Package</span>
+                )
+              break;
+            default:
+                return (
+                    <span>Add Package</span>
+                )
+          }
+
+    }
+    generateModalFoot=(modalType) => ()=> {
+        return (
+            <div>
+                <Button className="addPackageButton" color="primary" size="sm" >Save Package</Button>
+            </div>
+        )
+    }
+    generateModalBody=(modalType) => ()=> {
+        switch(modalType) {
+            case "ADD":
+                return (
+                    <Form>
+                        <FormGroup>
+                            <Label className="fontTableData">Package Name</Label>
+                            <Input type="text" size="sm"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="fontTableData">Package Unique Code</Label>
+                            <Input type="text" size="sm"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="fontTableData">Package Price</Label>
+                            <Input type="text" size="sm"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="fontTableData">Package Expire Date</Label>
+                            <div>
+                            <DateRangePicker onApply={this.onApply} containerStyles={{display: "flex"}} singleDatePicker>
+                            <Input type="type" size="sm" value={this.state.dateValue}/>
+                            </DateRangePicker>
+                            </div>
+                        </FormGroup>
+                        <FormGroup>
+                                <Label className="fontTableData">Package Status</Label>
+                                <CustomInput type="switch" size="sm" id="exampleCustomSwitch" className="fontTableHead" label="Active" />
+                        </FormGroup>
+                        <FormGroup>
+                            <hr/>
+                            <Label for="exampleFile" className="fontTableData">Select Images to Upload</Label>
+                            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between", padding:15}}>
+                                {Array.apply(null, { length: 4 }).map((e, i) => 
+                                { return (
+                                    <div style={{display: "inline-block", margin: 10}}>
+                                        {this.generateImageUploadComponent()}
+                                    </div>
+                                    )}
+                            )}
+                            </div>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="fontTableData">Package Description</Label>
+                            <Input type="textarea" size="sm"/>
+                        </FormGroup>
+                    </Form>
+                )
+            break;
+            case "VIEW":
+                return (
+                    <span>View Package</span>
+                )
+            break;
+            case "EDIT":
+                return (
+                    <span>Edit Package</span>
+                )
+            break;
+              case "REMOVE":
+                return (
+                    <span>Remove Package</span>
+                )
+              break;
+            default:
+                return (
+                    <span>Add Package</span>
+                )
+          }
     }
     render() { 
         return ( 
@@ -33,7 +165,7 @@ class homeView extends React.Component {
                 <Jumbotron className="ml-4 mr-4">
                     <div style={{display:"flex", flex: 1, justifyContent: "space-between", alignItems: "center"}}>
                         <p className="lead font">Packages List</p>
-                        <Button className="addPackageButton" color="primary" size="sm" >Add New Package</Button>
+                        <Button className="addPackageButton" onClick={this.toggleModal} color="primary" size="sm" >Add New Package</Button>
                     </div>
                     <Table >
                         <thead>
@@ -57,6 +189,7 @@ class homeView extends React.Component {
                         </tbody>
                     </Table>
                 </Jumbotron>
+                <Modal isModalopen={this.state.isModalopen} toggleModal={this.toggleModal} ModalBodyElemants={this.generateModalBody("ADD")}  ModalHeadElemants={this.generateModalHead("ADD")} ModalFooterElemants={this.generateModalFoot("ADD")}/>
             </div>
          );
     }

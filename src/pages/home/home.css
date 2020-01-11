@@ -61,3 +61,13 @@
     background-color: rgb(80, 205, 255);
     border-color: rgb(80, 205, 255);
 }
+.btnBrowse {
+    background: rgb(80, 205, 255);
+    color: white;
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 0px;
+    margin: 10px 20px 20px 20px;
+    padding: 5px 15px 5px 15px;
+    align-self: center;
+}
