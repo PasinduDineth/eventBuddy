@@ -71,3 +71,24 @@
     padding: 5px 15px 5px 15px;
     align-self: center;
 }
+.noButton:focus {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(233, 75, 75);
+    border-color: rgb(233, 75, 75);
+}
+.noButton {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(233, 75, 75);
+    border-color: rgb(233, 75, 75);
+}
+.noButton:hover {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(170, 37, 37);
+    border-color: rgb(170, 37, 37);
+}

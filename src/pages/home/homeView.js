@@ -15,6 +15,7 @@ class homeView extends React.Component {
         this.state = { 
             isOpen: false,
             isModalopen: false,
+            isDeleteModalopen: false,
             dateValue:"",
             imagePreview: []
             }
@@ -27,6 +28,11 @@ class homeView extends React.Component {
     toggleModal=()=> {
         this.setState({
             isModalopen: !this.state.isModalopen
+        })
+    }
+    toggleDeleteModal=()=> {
+        this.setState({
+            isDeleteModalopen: !this.state.isDeleteModalopen
         })
     }
     onApply=(event, picker)=>{
@@ -90,11 +96,35 @@ class homeView extends React.Component {
 
     }
     generateModalFoot=(modalType) => ()=> {
-        return (
-            <div>
-                <Button className="addPackageButton" color="primary" size="sm" >Save Package</Button>
-            </div>
-        )
+        switch(modalType) {
+            case "ADD":
+                return (
+                    <Button className="addPackageButton" color="primary" size="sm" >Save Package</Button>
+                )
+            break;
+            case "VIEW":
+                return (
+                    <Button className="addPackageButton" color="primary" size="sm" >Save Package</Button>
+                )
+            break;
+            case "EDIT":
+                return (
+                    <Button className="addPackageButton" color="primary" size="sm" >Save Package</Button>
+                )
+            break;
+              case "REMOVE":
+                return (
+                    <div>
+                        <Button className="addPackageButton" color="primary" size="sm" >Yes</Button> { }
+                        <Button className="noButton" color="primary" size="sm" onClick={this.toggleDeleteModal} >No</Button>
+                    </div>
+                )
+              break;
+            default:
+                return (
+                    <Button className="addPackageButton" color="primary" size="sm" >Save Package</Button>
+                )
+          }
     }
     generateModalBody=(modalType) => ()=> {
         switch(modalType) {
@@ -157,7 +187,7 @@ class homeView extends React.Component {
             break;
               case "REMOVE":
                 return (
-                    <span>Remove Package</span>
+                    <span>Would you like to delete this product permanantly? After deleting this, You won't be able to recover it back.</span>
                 )
               break;
             default:
@@ -200,11 +230,12 @@ class homeView extends React.Component {
                             <td className="fontTableData">banq01</td>
                             <td className="fontTableData">2019-03-11</td>
                             <td className="fontTableData">Active</td>
-                            <td><div><Icon icon={pencilSquareO} /><Icon icon={eye} className="ml-2" /><Icon icon={timesRectangle} className="ml-2" /></div></td>
+                            <td><div><Icon icon={pencilSquareO} /><Icon icon={eye} className="ml-2" /><Icon icon={timesRectangle} onClick={this.toggleDeleteModal} className="ml-2" /></div></td>
                             </tr>
                         </tbody>
                     </Table>
                 </Jumbotron>
+                <Modal isModalopen={this.state.isDeleteModalopen} toggleModal={this.toggleDeleteModal} ModalBodyElemants={this.generateModalBody("REMOVE")}  ModalHeadElemants={this.generateModalHead("REMOVE")} ModalFooterElemants={this.generateModalFoot("REMOVE")}/>
                 <Modal isModalopen={this.state.isModalopen} toggleModal={this.toggleModal} ModalBodyElemants={this.generateModalBody("ADD")}  ModalHeadElemants={this.generateModalHead("ADD")} ModalFooterElemants={this.generateModalFoot("ADD")}/>
             </div>
          );
