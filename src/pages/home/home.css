@@ -1,0 +1,94 @@
+.navBarMain{
+    background-color: rgb(80, 205, 255);
+}
+
+.navBarLogo{
+    color: #fff !important;
+    font-family: Cairo;
+    font-weight: 600 !important;
+    /* font-size: 25px; */
+}
+.navItem{
+    color: #fff !important;
+    font-family: Cairo;
+    font-weight: 400 !important;
+    font-size: 15px;
+    align-self: center;
+}
+.navItem:hover{
+    font-family: Cairo;
+    font-weight: 600 !important;
+}
+.pkgListHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.pkgListHeaderContent{
+    font-family: Cairo;
+    font-weight: 600 !important;
+}
+.fontx{
+    font-family: CamphorPro-Regular;
+}
+.fontTableHead{
+    font-family: Cairo;
+    font-weight: 600;
+}
+.fontTableData{
+    font-family: Cairo;
+    font-weight: 400;
+}
+
+.addPackageButton {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(80, 205, 255);
+    border-color: rgb(80, 205, 255);
+}
+.addPackageButton:hover {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(13, 173, 236);
+    border-color: rgb(13, 173, 236);
+}
+.addPackageButton:focus {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(80, 205, 255);
+    border-color: rgb(80, 205, 255);
+}
+.btnBrowse {
+    background: rgb(80, 205, 255);
+    color: white;
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 0px;
+    margin: 10px 20px 20px 20px;
+    padding: 5px 15px 5px 15px;
+    align-self: center;
+}
+.noButton:focus {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(233, 75, 75);
+    border-color: rgb(233, 75, 75);
+}
+.noButton {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(233, 75, 75);
+    border-color: rgb(233, 75, 75);
+}
+.noButton:hover {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(170, 37, 37);
+    border-color: rgb(170, 37, 37);
+}
