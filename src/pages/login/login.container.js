@@ -1,30 +1,42 @@
 import React from 'react';
 import LoginView from "./loginView"
+import { login } from "../../actions/LoginAction"
 import { connect } from "react-redux";
 class loginContainer extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            email: "",
+            password: ""
+        }
     }
     onLogin=()=>{
-        this.props.history.push("/home")
+        // this.props.history.push("/home")
+        const { login } = this.props
+        login(this.state.email)       
     }
     onEmailChange=(arg)=>{
-        console.log("Email", arg.target.value);
+        this.setState({
+            email: arg.target.value
+        })
     }
     onPasswordChange=(arg)=>{
-        console.log("Password", arg.target.value);
+        this.setState({
+            password: arg.target.value
+        })
     }
     render() { 
-        console.log("COUNT", this.props.count);
-        
-        return ( 
+        // console.log("COUNT", this.props.count);
+        return (
             <LoginView onLogin={this.onLogin} onEmailChange={this.onEmailChange} onPasswordChange={this.onPasswordChange} />
          );
     }
 }
 
 const mapStateToProps = (state) => ({
-    count: state.session.count
+    isLoading: state.login.isLoading
   });
-export default connect(mapStateToProps)(loginContainer);
+const mapDispatchToProps = (dispatch) => ({
+    login: (data) => dispatch(login(data))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(loginContainer);
