@@ -13,7 +13,7 @@ class loginContainer extends React.PureComponent {
     onLogin=()=>{
         // this.props.history.push("/home")
         const { login } = this.props
-        login(this.state.email)       
+        login({ username: this.state.email, password: this.state.password })
     }
     onEmailChange=(arg)=>{
         this.setState({
@@ -26,7 +26,6 @@ class loginContainer extends React.PureComponent {
         })
     }
     render() { 
-        // console.log("COUNT", this.props.count);
         return (
             <LoginView onLogin={this.onLogin} onEmailChange={this.onEmailChange} onPasswordChange={this.onPasswordChange} />
          );
@@ -34,7 +33,8 @@ class loginContainer extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state.login.isLoading
+    isLoading: state.login.isLoading,
+    isLoggedIn: state.login.isLoggedIn
   });
 const mapDispatchToProps = (dispatch) => ({
     login: (data) => dispatch(login(data))

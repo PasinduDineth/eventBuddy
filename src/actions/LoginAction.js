@@ -1,7 +1,10 @@
+import { signIn } from "../SDK"
 export const LOGIN_REQUEST = "LOGIN_REQUEST"
 export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS"
 export const LOGIN_REQUEST_FAILURE = "LOGIN_REQUEST_FAILURE"
 
+
+// Login actions
 export const loginRequest = () => ({
     type: LOGIN_REQUEST
 })
@@ -16,14 +19,13 @@ export const loginRequestFailure = () => ({
 })
 
 export const login = (data) => (dispatch) => {
-    console.log("d", data);
     dispatch(loginRequest())
-    // BackendClient.getLoginContent()
-    //     .then(({ data }) => {
-    //         dispatch(fetchLoginContentSuccess(data))
-    //     })
-    //     .catch(error => {
-    //         dispatch(fetchLoginContentFailure())
-    //         console.log(error)
-    //     })
+    signIn(data)
+        .then((response) => {
+            dispatch(loginRequestSuccess(response))
+        })
+        .catch(error => {
+            dispatch(loginRequestFailure())
+            console.log(error)
+        })
 }
