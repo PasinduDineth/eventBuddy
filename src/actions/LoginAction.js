@@ -18,11 +18,12 @@ export const loginRequestFailure = () => ({
     type: LOGIN_REQUEST_FAILURE
 })
 
-export const login = (data) => (dispatch) => {
+export const login = (data, push) => (dispatch) => {
     dispatch(loginRequest())
     signIn(data)
         .then((response) => {
             dispatch(loginRequestSuccess(response))
+            push("/home")
         })
         .catch(error => {
             dispatch(loginRequestFailure())
