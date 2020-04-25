@@ -1,4 +1,4 @@
-import { signIn } from "../SDK"
+import { signIn, addProduct } from "../SDK"
 export const LOGIN_REQUEST = "LOGIN_REQUEST"
 export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS"
 export const LOGIN_REQUEST_FAILURE = "LOGIN_REQUEST_FAILURE"
@@ -20,8 +20,8 @@ export const loginRequestFailure = () => ({
 
 export const login = (data, push) => (dispatch) => {
     dispatch(loginRequest())
-    signIn(data)
-        .then((response) => {
+    // signIn(data)
+    addProduct(data).then((response) => {
             dispatch(loginRequestSuccess(response))
             push("/home")
         })
