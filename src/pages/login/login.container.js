@@ -12,8 +12,9 @@ class loginContainer extends React.PureComponent {
     }
     onLogin=()=>{
         // this.props.history.push("/home")
+        const { push } = this.props.history;
         const { login } = this.props
-        login({ username: this.state.email, password: this.state.password })
+        login({ username: this.state.email, password: this.state.password }, push)
     }
     onEmailChange=(arg)=>{
         this.setState({
@@ -37,6 +38,6 @@ const mapStateToProps = (state) => ({
     isLoggedIn: state.login.isLoggedIn
   });
 const mapDispatchToProps = (dispatch) => ({
-    login: (data) => dispatch(login(data))
+    login: (data, push) => dispatch(login(data, push))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(loginContainer);
