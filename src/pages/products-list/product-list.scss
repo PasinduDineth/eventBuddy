@@ -1,0 +1,271 @@
+.navBarMain{
+    background-color: #F3EFEF !important;
+}
+
+.navBarLogo{
+    color: #525252 !important;
+    font-family: CamphorStd-Bold;
+    font-weight: 600 !important;
+    font-size: 30px;
+}
+.navItem{
+    color: #fff !important;
+    font-family: CamphorPro-Regular;
+    font-weight: 400 !important;
+    font-size: 15px;
+    align-self: center;
+}
+.navItem:hover{
+    font-family: Cairo;
+    font-weight: 600 !important;
+}
+.pkgListHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.pkgListHeaderContent{
+    font-family: Cairo;
+    font-weight: 600 !important;
+}
+.fontx{
+    font-family: CamphorPro-Regular;
+}
+.fontTableHead{
+    font-family: Cairo;
+    font-weight: 600;
+}
+.fontTableData{
+    font-family: Cairo;
+    font-weight: 400;
+}
+
+.addPackageButton {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(80, 205, 255);
+    border-color: rgb(80, 205, 255);
+}
+.addPackageButton:hover {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(13, 173, 236);
+    border-color: rgb(13, 173, 236);
+}
+.addPackageButton:focus {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(80, 205, 255);
+    border-color: rgb(80, 205, 255);
+}
+.btnBrowse {
+    background: rgb(80, 205, 255);
+    color: white;
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 0px;
+    margin: 10px 20px 20px 20px;
+    padding: 5px 15px 5px 15px;
+    align-self: center;
+}
+.noButton:focus {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(233, 75, 75);
+    border-color: rgb(233, 75, 75);
+}
+.noButton {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(233, 75, 75);
+    border-color: rgb(233, 75, 75);
+}
+.noButton:hover {
+    font-family: Cairo;
+    font-weight: 400;
+    border-radius: 2px;
+    background-color: rgb(170, 37, 37);
+    border-color: rgb(170, 37, 37);
+}
+.mainImageHolder {
+    border-radius: 25px;
+    background: url("../../images/banner.jpg") no-repeat;
+    background-size: contain;
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+    height: 400px;
+    background-color: white;
+}
+.loginButton{
+    background-color: #FAA147;
+    color: white;
+    border-radius: 25px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 110px;
+    font-family: CamphorStd-Bold;
+}
+.signUpButton{
+    color: #525252;
+    font-family: CamphorStd-Bold;
+}
+.productTitle {
+    font-family: CamphorStd-Bold;
+    color: #525252;
+}
+.productDescription {
+    font-family: CamphorPro-Regular;
+    color: #525252;
+}
+.main {
+    background-color: #F3EFEF;
+    padding: 20px;
+}
+.cardPadding{
+    padding: 10px;
+}
+.mainCarousel {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-bottom: 20px;
+}
+.cardStyle{
+    border: none;
+    border-radius: 25px;
+}
+.searchInput {
+    border-radius: 25px;
+    padding: 25px;
+    border: none;
+    font-family: CamphorStd-Bold;
+}
+.searchMain{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    position: relative;
+    top: -50px;
+}
+.searchButton {
+    background-color: #FAA147;
+    border: none;
+    border-radius: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-family: CamphorStd-Bold;
+}
+.searchComponent {
+    width: 60%;
+    div {
+        margin-left: -14px;
+    }
+}
+.effect1{
+    -webkit-box-shadow: 0 10px 6px -6px #aaaaaa;
+    -moz-box-shadow: 0 10px 6px -6px #aaaaaa;
+    box-shadow: 0 10px 6px -6px #aaaaaa;
+}
+.productsList {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.addButton{
+    background-color: #FAA147;
+    color: white;
+    border-radius: 25px;
+    border: 0px;
+    font-size: 12px;
+    line-height: 15px;
+    font-family: CamphorStd-Bold;
+    width: 90px;
+}
+.upDownMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #FAA147;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #FAA147;
+    color: #fff;
+    padding: 5px;
+    vertical-align: top;
+    margin-left: -10px; 
+}
+.drawerTop {
+    display: flex;
+}
+.cartTittle {
+    font-family: CamphorStd-Bold;
+    font-size: 20px;
+}
+.img-circular{
+    width: 50px;
+    height: 50px;
+    background-image: url('https://res.cloudinary.com/sivadass/image/upload/v1493620045/dummy-products/beetroot.jpg');
+    background-size: cover;
+    display: block;
+    border-radius: 5px;
+}
+.cartCard {
+    border: 0px;
+    min-width: 300px;
+}
+.cartTitle {
+    color: #fff;
+    font-family: CamphorStd-Bold;
+}
+.cartProductName {
+    font-family: CamphorPro-Regular;
+    color: #525252;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+.cartProductPrice {
+    font-family: CamphorStd-Bold;
+    color: #525252;
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+.checkoutButton{
+    background-color: #FAA147;
+    color: white;
+    border-radius: 25px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: CamphorStd-Bold;
+}
+.orderDetails {
+    font-family: CamphorStd-Bold;
+    color: #525252;
+    font-size: 13px;
+}
+.drawerHead{
+    > i > svg {
+        vertical-align: sub !important;
+    }
+}
