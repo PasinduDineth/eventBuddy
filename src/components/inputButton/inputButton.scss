@@ -1,0 +1,18 @@
+.upDownMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+.loginButton{
+    background-color: #FAA147;
+    color: white;
+    border-radius: 25px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 110px;
+    font-family: CamphorStd-Bold;
+}
