@@ -187,6 +187,16 @@
     font-family: CamphorStd-Bold;
     width: 90px;
 }
+.removeButton{
+    background-color: #FAA147;
+    color: white;
+    border-radius: 25px;
+    border: 0px;
+    font-size: 12px;
+    font-family: CamphorStd-Bold;
+    margin: 0px !important;
+    padding: 3px 5px 3px 5px !important;
+}
 .upDownMain {
     display: flex;
     justify-content: center;
@@ -225,7 +235,7 @@
 .img-circular{
     width: 50px;
     height: 50px;
-    background-image: url('https://res.cloudinary.com/sivadass/image/upload/v1493620045/dummy-products/beetroot.jpg');
+    // background-image: url('https://res.cloudinary.com/sivadass/image/upload/v1493620045/dummy-products/beetroot.jpg');
     background-size: cover;
     display: block;
     border-radius: 5px;
@@ -248,6 +258,12 @@
     font-family: CamphorStd-Bold;
     color: #525252;
     font-size: 12px;
+    margin-bottom: 0px;
+}
+.cartProductTotalPrice {
+    font-family: CamphorStd-Bold;
+    color: #FAA147;
+    font-size: 14px;
     margin-bottom: 0px;
 }
 .checkoutButton{

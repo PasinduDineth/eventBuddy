@@ -15,7 +15,7 @@ class inputButton extends React.Component {
         let { amount } = this.state
         let { onChangeValue, uniqueID } = this.props
         this.setState({
-            amount: amount + 1
+            amount: Number(amount) + Number(1)
         },() => onChangeValue({amount: this.state.amount, uniqueID: uniqueID})
         )
     }
@@ -25,16 +25,23 @@ class inputButton extends React.Component {
 
         if(amount > 0) {
             this.setState({
-                amount: amount - 1
+                amount: Number(amount) - Number(1)
             },() => onChangeValue({amount: this.state.amount, uniqueID: uniqueID})
             )
         }        
+    }
+    onChange = (e) => {
+        let { onChangeValue, uniqueID } = this.props
+        this.setState({
+            amount: e.target.value
+        },() => onChangeValue({amount: this.state.amount, uniqueID: uniqueID})
+        )
     }
     render() {
         return ( 
             <div className="upDownMain" style={{paddingBottom: 7}}>
                 <Button color="link" style={{marginLeft: 5, marginRight: 5}} onClick={this.decrement} className="loginButton"><Icon size={8} icon={minus}/></Button>
-                    <Input type="text" style={{boxSizing: "border-box", textAlign: "center", borderRadius: 30}} placeholder="Qty" value={this.state.amount} />
+                    <Input type="text" onChange={this.onChange} style={{boxSizing: "border-box", textAlign: "center", borderRadius: 30}} placeholder="Qty" value={this.state.amount} />
                 <Button color="link" style={{marginLeft: 5, marginRight: 5}} onClick={this.increment} className="loginButton"><Icon size={8} icon={plus}/></Button>
             </div>
          );
