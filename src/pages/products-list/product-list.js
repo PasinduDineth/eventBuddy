@@ -7,7 +7,6 @@ import {cancelCircle} from 'react-icons-kit/icomoon/cancelCircle'
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import InputButton from "../../components/inputButton/inputButton"
-import Data from "../../products.json"
 class productList extends React.Component {
     constructor(props) {
         super(props);
@@ -18,10 +17,11 @@ class productList extends React.Component {
     }
     changeValue = (arg) => {
         const { orders } = this.state
-        const selected = orders.find(odr => odr.uniqueID === arg.uniqueID)
+        const selected = orders.find(odr => odr.uniqueID.name === arg.uniqueID.name)
+        
         if(selected){
             // already have
-            const filtered = orders.filter(odr => odr.uniqueID !== arg.uniqueID)
+            const filtered = orders.filter(odr => odr.uniqueID.name !== arg.uniqueID.name)
             const updated = {...selected, ...arg}
             this.setState({
                 orders: filtered.concat([updated])
@@ -35,7 +35,6 @@ class productList extends React.Component {
         }
     }
     openCart = () => {
-        console.log("cart", this.state.orders);
     }
     toggle = () => {
         this.setState({
@@ -43,22 +42,23 @@ class productList extends React.Component {
         })
     }
     addToCart = (e) => {
-        console.log(e.target.id)        
         const { orders } = this.state
-        const selected = orders.find(odr => odr.uniqueID === e.target.id)
-        if(selected && selected.amount !== 0){
-            // already have
-            const filtered = orders.filter(odr => odr.uniqueID !== e.target.id)
-            const updated = {...selected, isAddedToCart: true}
-            this.setState({
-                orders: filtered.concat([updated])
-            })
+        const { onAddedToCart } = this.props        
+        const selected = orders.find(odr => odr.uniqueID.name === e.target.id)
+        if(selected){
+            // already have in inner state, send to reducer
+            onAddedToCart(selected)
         }
         else {
             // not in state or amount is 0. Do nothing
         }
     }
-    render() {        
+    onRemove = (e) => {
+        const { remove } = this.props
+        remove(e.target.id)
+    }
+    render() {
+        const { productList, cart } = this.props
         let settings = {
             dots: false,
             infinite: true,
@@ -98,7 +98,7 @@ class productList extends React.Component {
                 <Navbar light expand="md" className="navBarMain">
                     <NavbarBrand href="/" className="navBarLogo ml-4">SIHELA</NavbarBrand>
                     <div className="ml-auto">
-                        <Button color="link" className="signUpButton">Sign Up</Button>
+                        <Button color="link" className="signUpButton" onClick={this.openCart}>Sign Up</Button>
                         <Button className="ml-auto mr-4 loginButton">Login</Button>
                         <Icon style={{ color: '#525252' }} onClick={this.toggle} size={30} icon={ic_shopping_cart}/>
                         <span class='badge badge-warning' id='lblCartCount'> 5 </span>
@@ -131,16 +131,16 @@ class productList extends React.Component {
                 <div className="m-4">
                     <Container fluid className="productsList">
                         <Row>
-                            {Data.map((product) =>
+                            {productList.map((product) =>
                                 <Col sm="2" className="mb-4">
                                     <Card className="cardStyle effect1">
                                         <CardImg top width="100%" className="cardStyle" src={product.image} />
                                         <CardBody className="text-center">
                                             <CardSubtitle style={{paddingBottom: 2}} className="productTitle">{product.name}</CardSubtitle>
-                                            <CardSubtitle style={{paddingBottom: 5, fontSize: 12}} className="productDescription">Unit: Kg</CardSubtitle>
+                                            <CardSubtitle style={{paddingBottom: 5, fontSize: 12}} className="productDescription">Unit: {product.unit}</CardSubtitle>
                                             <CardSubtitle style={{paddingBottom: 7}} className="productDescription">Rs.{product.price}</CardSubtitle>
-                                            <InputButton onChangeValue={this.changeValue} uniqueID={product.name}/>
-                                            <Button className="addButton" onClick={this.addToCart} id={product.name}>ADD</Button>
+                                            <InputButton onChangeValue={this.changeValue} uniqueID={product}/>
+                                            <Button className="addButton" onClick={this.addToCart} id={product.name}>{cart.find(el => el.uniqueID.name === product.name) && cart.find(el => el.uniqueID.name === product.name).amount !== 0 ? "EDIT" : "ADD"}</Button>
                                         </CardBody>
                                     </Card>
                                 </Col>
@@ -157,150 +157,30 @@ class productList extends React.Component {
                                 <div></div>
                             </div>
                             <div style={{display: "flex", overflowY: "scroll", scrollbarWidth: "thin", flexDirection: "column"}}>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
+                                {cart.map((itm) => 
+                                <div>
+                                    <Card className="cartCard">
+                                        <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
+                                            <div style={{display: "flex", flexDirection: "row"}}>
+                                                <div className="img-circular" style={{backgroundImage:"url(" + itm.uniqueID.image + ")"}}></div>
+                                                <div className="ml-2"
+                                                    style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                                                    <p className="cartProductName">{itm.uniqueID.name}</p>
+                                                    <p className="cartProductPrice">Rs.{itm.uniqueID.price} X {itm.amount}{itm.uniqueID.unit}</p>
+                                                    <p className="cartProductTotalPrice">Rs.{itm.uniqueID.price * itm.amount}</p>
+                                                </div>
+                                            </div>
+                                            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} className="mr-2">
+                                            {/* <Icon style={{ color: '#FAA147' }} size={18} icon={cancelCircle}/> */}
+                                                <Button className="removeButton" onClick={this.onRemove} id={itm.uniqueID.name}>Remove</Button>
                                             </div>
                                         </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
+                                    </Card>
+                                    <div className="ml-2 mr-2 mt-2">
+                                        <Divider />
                                     </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
                                 </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
-                                <Card className="cartCard">
-                                    <div style={{display: "flex", justifyContent: "space-between"}} className="ml-2 mr-2 mt-2">
-                                        <div style={{display: "flex", flexDirection: "row"}}>
-                                            <div className="img-circular"></div>
-                                            <div className="ml-2"
-                                                 style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                <p className="cartProductName">Carrot</p>
-                                                <p className="cartProductPrice">Rs.190.00 X 5kg</p>
-                                            </div>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                            <Icon style={{ color: '#FAA147' }} onClick={this.toggle} size={18} className="pr-2" icon={cancelCircle}/>
-                                        </div>
-                                    </div>
-                                </Card>
-                                <div className="ml-2 mr-2 mt-2">
-                                    <Divider />
-                                </div>
+                                )}
                             </div>
                         </div>
                         <div className="m-2 pb-4">
