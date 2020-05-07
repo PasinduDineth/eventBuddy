@@ -12,7 +12,8 @@ class productList extends React.Component {
         super(props);
         this.state = {
             orders: [],
-            isOpen: false
+            isOpen: false,
+            search: ""
         }
     }
     changeValue = (arg) => {
@@ -57,8 +58,34 @@ class productList extends React.Component {
         const { remove } = this.props
         remove(e.target.id)
     }
+    searchChange = (e) => {
+        let keyword = e.target.value;
+        this.setState({search:keyword})
+    }
     render() {
         const { productList, cart } = this.props
+        const items = productList.filter((data)=>{
+            if(this.state.search == null)
+                return data
+            else if(data.name.toLowerCase().includes(this.state.search.toLowerCase())){
+                return data
+            }
+        }).map(product=>{
+            return(
+                <Col sm="2" className="mb-4">
+                    <Card className="cardStyle effect1">
+                        <CardImg top width="100%" className="cardStyle" src={product.image} />
+                        <CardBody className="text-center">
+                            <CardSubtitle style={{paddingBottom: 2}} className="productTitle">{product.name}</CardSubtitle>
+                            <CardSubtitle style={{paddingBottom: 5, fontSize: 12}} className="productDescription">Unit: {product.unit}</CardSubtitle>
+                            <CardSubtitle style={{paddingBottom: 7}} className="productDescription">Rs.{product.price}</CardSubtitle>
+                            <InputButton onChangeValue={this.changeValue} uniqueID={product}/>
+                            <Button className="addButton" onClick={this.addToCart} id={product.name}>{cart.find(el => el.uniqueID.name === product.name) && cart.find(el => el.uniqueID.name === product.name).amount !== 0 ? "EDIT" : "ADD"}</Button>
+                        </CardBody>
+                    </Card>
+                </Col>
+            )
+        })
         let settings = {
             dots: false,
             infinite: true,
@@ -110,10 +137,11 @@ class productList extends React.Component {
                     <InputGroup className="searchComponent">
                         <Input  className="searchInput effect1"
                                 placeholder="Search"
+                                onChange={this.searchChange}
                         />
-                        <InputGroupAddon addonType="append">
-                            <Button className="searchButton effect1">Search</Button>
-                        </InputGroupAddon>
+                        {/*<InputGroupAddon addonType="append">*/}
+                        {/*    <Button className="searchButton effect1">Search</Button>*/}
+                        {/*</InputGroupAddon>*/}
                     </InputGroup>
                 </div>
                 {/* <div className="mainCarousel">
@@ -131,20 +159,7 @@ class productList extends React.Component {
                 <div className="m-4">
                     <Container fluid className="productsList">
                         <Row>
-                            {productList.map((product) =>
-                                <Col sm="2" className="mb-4">
-                                    <Card className="cardStyle effect1">
-                                        <CardImg top width="100%" className="cardStyle" src={product.image} />
-                                        <CardBody className="text-center">
-                                            <CardSubtitle style={{paddingBottom: 2}} className="productTitle">{product.name}</CardSubtitle>
-                                            <CardSubtitle style={{paddingBottom: 5, fontSize: 12}} className="productDescription">Unit: {product.unit}</CardSubtitle>
-                                            <CardSubtitle style={{paddingBottom: 7}} className="productDescription">Rs.{product.price}</CardSubtitle>
-                                            <InputButton onChangeValue={this.changeValue} uniqueID={product}/>
-                                            <Button className="addButton" onClick={this.addToCart} id={product.name}>{cart.find(el => el.uniqueID.name === product.name) && cart.find(el => el.uniqueID.name === product.name).amount !== 0 ? "EDIT" : "ADD"}</Button>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                            )}
+                            {items}
                         </Row>
                     </Container>
                 </div>
