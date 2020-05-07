@@ -9,10 +9,10 @@ class productListContainer extends React.PureComponent {
         }
     }
     render() { 
-        const { productFetch, initialPRoductList, addToCart, cart, remove } = this.props
+        const { productFetch, initialProductList, addToCart, cart, remove, total } = this.props
         productFetch()
         return (
-            <ProductList productList={initialPRoductList} onAddedToCart={addToCart} cart={cart} remove={remove} />
+            <ProductList productList={initialProductList} onAddedToCart={addToCart} cart={cart} remove={remove} total={total} />
          );
     }
 }
@@ -20,9 +20,10 @@ class productListContainer extends React.PureComponent {
 const mapStateToProps = (state) => ({
     // isLoading: state.login.isLoading,
     // isLoggedIn: state.login.isLoggedIn,
-    initialPRoductList: state.product.initialProductList,
-    cart: state.product.cart
-  });
+    initialProductList: state.product.initialProductList,
+    cart: state.product.cart,
+    total: state.product.total
+});
 const mapDispatchToProps = (dispatch) => ({
     productFetch: () => dispatch(productFetch()),
     addToCart: (data) => dispatch(productAddToCart(data)),

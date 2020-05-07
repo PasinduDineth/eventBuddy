@@ -278,10 +278,27 @@
 .orderDetails {
     font-family: CamphorStd-Bold;
     color: #525252;
-    font-size: 13px;
+    font-size: 10px;
+}
+.totalLabel {
+    font-family: CamphorStd-Bold;
+    color: #525252;
+    font-size: 16px;
+    margin: 0px !important;
+}
+.totalAmount {
+    font-family: CamphorPro-Heavy;
+    color: #FAA147;
+    font-size: 18px;
 }
 .drawerHead{
     > i > svg {
         vertical-align: sub !important;
     }
+}
+.labelContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
