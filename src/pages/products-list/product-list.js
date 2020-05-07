@@ -63,7 +63,7 @@ class productList extends React.Component {
         this.setState({search:keyword})
     }
     render() {
-        const { productList, cart } = this.props
+        const { productList, cart, total } = this.props
         const items = productList.filter((data)=>{
             if(this.state.search == null)
                 return data
@@ -128,7 +128,7 @@ class productList extends React.Component {
                         <Button color="link" className="signUpButton" onClick={this.openCart}>Sign Up</Button>
                         <Button className="ml-auto mr-4 loginButton">Login</Button>
                         <Icon style={{ color: '#525252' }} onClick={this.toggle} size={30} icon={ic_shopping_cart}/>
-                        <span class='badge badge-warning' id='lblCartCount'> 5 </span>
+                        <span class='badge badge-warning' id='lblCartCount'> {cart.length} </span>
                     </div>
                 </Navbar>
                 <Jumbotron className="ml-5 mb-4 mt-4 mr-5 mainImageHolder jumbotron effect1">
@@ -181,8 +181,8 @@ class productList extends React.Component {
                                                 <div className="ml-2"
                                                     style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
                                                     <p className="cartProductName">{itm.uniqueID.name}</p>
-                                                    <p className="cartProductPrice">Rs.{itm.uniqueID.price} X {itm.amount}{itm.uniqueID.unit}</p>
-                                                    <p className="cartProductTotalPrice">Rs.{itm.uniqueID.price * itm.amount}</p>
+                                                    <p className="cartProductPrice">Rs.{itm.uniqueID.price.toFixed(2)} X {itm.amount}{itm.uniqueID.unit}</p>
+                                                    <p className="cartProductTotalPrice">Rs.{(itm.uniqueID.price * itm.amount).toFixed(2)}</p>
                                                 </div>
                                             </div>
                                             <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} className="mr-2">
@@ -199,6 +199,11 @@ class productList extends React.Component {
                             </div>
                         </div>
                         <div className="m-2 pb-4">
+                            <Divider className="mb-2" />
+                            <div className="labelContainer">
+                                <Label for="exampleText" className="totalLabel">TOTAL</Label>
+                                <Label for="exampleText" className="totalAmount">Rs.{total.toFixed(2)}</Label>
+                            </div>
                             <FormGroup>
                                 <Label for="exampleText" className="orderDetails">SPECIAL NOTE</Label>
                                 <Input type="textarea" name="text" id="exampleText" />
