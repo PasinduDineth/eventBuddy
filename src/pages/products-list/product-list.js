@@ -5,7 +5,9 @@ import { Icon } from 'react-icons-kit'
 import {ic_shopping_cart} from 'react-icons-kit/md/ic_shopping_cart'
 import {cancelCircle} from 'react-icons-kit/icomoon/cancelCircle'
 import Drawer from '@material-ui/core/Drawer';
+import logo from '../../images/logo2.jpg';
 import Divider from '@material-ui/core/Divider';
+import Modal from "../../components/modal/modal"
 import InputButton from "../../components/inputButton/inputButton"
 class productList extends React.Component {
     constructor(props) {
@@ -13,7 +15,10 @@ class productList extends React.Component {
         this.state = {
             orders: [],
             isOpen: false,
-            search: ""
+            search: "",
+            isModalOpen: false,
+            modalType: "Login",
+            errorMessage: "Email Invalied!"
         }
     }
     changeValue = (arg) => {
@@ -35,11 +40,23 @@ class productList extends React.Component {
             })
         }
     }
-    openCart = () => {
+    onPressButton = (e) => {
+        console.log("dd", e)
+    }
+    onLogin = () => {
+        this.setState({isModalOpen: true, modalType: "Login"})
+    }
+    onSignUp = () => {
+        this.setState({isModalOpen: true, modalType: "Register"})
     }
     toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
+        })
+    }
+    toggleModal = () => {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
         })
     }
     addToCart = (e) => {
@@ -123,10 +140,10 @@ class productList extends React.Component {
         return ( 
             <div className="main">
                 <Navbar light expand="md" className="navBarMain">
-                    <NavbarBrand href="/" className="navBarLogo ml-4">SIHELA</NavbarBrand>
+                    <NavbarBrand href="/" className="navBarLogo ml-4"><img src={logo} height="60px" alt="" /></NavbarBrand>
                     <div className="ml-auto">
-                        <Button color="link" className="signUpButton" onClick={this.openCart}>Sign Up</Button>
-                        <Button className="ml-auto mr-4 loginButton">Login</Button>
+                        <Button color="link" className="signUpButton" onClick={this.onSignUp}>Sign Up</Button>
+                        <Button className="ml-auto mr-4 loginButton" onClick={this.onLogin}>Login</Button>
                         <Icon style={{ color: '#525252' }} onClick={this.toggle} size={30} icon={ic_shopping_cart}/>
                         <span class='badge badge-warning' id='lblCartCount'> {cart.length} </span>
                     </div>
@@ -166,7 +183,7 @@ class productList extends React.Component {
                 <Drawer anchor="right" open={this.state.isOpen} onClose={this.toggle}>
                     <div style={{display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between"}}>
                         <div style={{display: "flex",flexDirection: "column", overflowY: "hidden"}}>
-                            <div style={{display: "flex", alignItems: "center",justifyContent: "space-between", backgroundColor: "#FAA147"}} className="drawerHead">
+                            <div style={{display: "flex", alignItems: "center",justifyContent: "space-between", backgroundColor: "#F95335"}} className="drawerHead">
                                  <Icon style={{ color: '#fff', margin: 0, padding: 0 }} onClick={this.toggle} size={18} className="pl-2" icon={cancelCircle}/>
                                 <CardTitle className="cartTitle pt-2 pb-2" style={{alignSelf: "center", marginBottom: 0}}>YOUR CART</CardTitle>
                                 <div></div>
@@ -186,7 +203,7 @@ class productList extends React.Component {
                                                 </div>
                                             </div>
                                             <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} className="mr-2">
-                                            {/* <Icon style={{ color: '#FAA147' }} size={18} icon={cancelCircle}/> */}
+                                            {/* <Icon style={{ color: '#F95335' }} size={18} icon={cancelCircle}/> */}
                                                 <Button className="removeButton" onClick={this.onRemove} id={itm.uniqueID.name}>Remove</Button>
                                             </div>
                                         </div>
@@ -212,6 +229,7 @@ class productList extends React.Component {
                         </div>
                     </div>
                 </Drawer>
+                <Modal onPressButton={this.onPressButton} errorMessage={this.state.errorMessage} isModalOpen={this.state.isModalOpen} toggleModal={this.toggleModal} type={this.state.modalType}/>
             </div>
          );
     }
