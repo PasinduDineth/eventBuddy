@@ -17,8 +17,7 @@ class productList extends React.Component {
             isOpen: false,
             search: "",
             isModalOpen: false,
-            modalType: "Login",
-            errorMessage: "Email Invalied!"
+            modalType: "Login"
         }
     }
     changeValue = (arg) => {
@@ -39,9 +38,11 @@ class productList extends React.Component {
                 orders: orders.concat([arg])
             })
         }
-    }
-    onPressButton = (e) => {
-        console.log("dd", e)
+    } 
+    // onPressButton = data => () => {
+    onPressButton = data => {
+        const { onModalActionPress } = this.props
+        onModalActionPress(data)
     }
     onLogin = () => {
         this.setState({isModalOpen: true, modalType: "Login"})
@@ -79,8 +80,8 @@ class productList extends React.Component {
         let keyword = e.target.value;
         this.setState({search:keyword})
     }
-    render() {
-        const { productList, cart, total } = this.props
+    render() {      
+        const { productList, cart, total, isError } = this.props
         const items = productList.filter((data)=>{
             if(this.state.search == null)
                 return data
@@ -229,7 +230,7 @@ class productList extends React.Component {
                         </div>
                     </div>
                 </Drawer>
-                <Modal onPressButton={this.onPressButton} errorMessage={this.state.errorMessage} isModalOpen={this.state.isModalOpen} toggleModal={this.toggleModal} type={this.state.modalType}/>
+                <Modal onPressButton={this.onPressButton} message={this.props.registerMessage} isModalOpen={this.state.isModalOpen} toggleModal={this.toggleModal} type={this.state.modalType} isError={isError} />
             </div>
          );
     }

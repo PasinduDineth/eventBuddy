@@ -1,18 +1,16 @@
 var Parse = require('parse');
-Parse.initialize("APPLICATION_ID", "MASTER_KEY");
-Parse.serverURL = 'http://localhost:1337/parse'
+Parse.initialize("CAPE", "0382299916C@pe");
+Parse.serverURL = 'http://172.105.117.202:1337/parse'
 
 async function signUp (params) {
     var user = new Parse.User();
-    user.set("username", "my name");
-    user.set("password", "my pass");
-    user.set("email", "email@example.com");
-    console.log("params", params);
+    user.set("username", params.email);
+    user.set("password", params.password);
+    user.set("email", params.email);
     try {
-      await user.signUp();
-      return "Doooone"
+      return {status: true, message: await user.signUp()}
     } catch (error) {
-      return error.message
+      return {status: false, message: error}
     }
   }
 async function signIn (params) {
