@@ -5,11 +5,50 @@ class modal extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            email: "",
+            password: "",
+            fullName: "",
+            address: "",
+            mobile: "",
+            confirmPassword: "",
+            errorMessage: "",
+            isErrorAvailable: false
         }
     }
+    componentDidUpdate() {
+        const { message, isError } = this.props
+        const { errorMessage, isErrorAvailable } = this.state       
+        if(message !== errorMessage || isErrorAvailable !== isError) {
+            this.setState({
+                errorMessage: message,
+                isErrorAvailable: isError
+            })
+        }
+    }
+    clearFields = () => {
+        this.setState({
+            email: "",password: "", confirmPassword: "", fullName: "", address: "", mobile: ""
+        })
+    }
+    onClickAction = (e) => {
+        const { onPressButton, toggleModal } = this.props
+        const { email,password, confirmPassword, fullName, address, mobile, isErrorAvailable } = this.state
+        if (e.target.value === "Register") {
+            onPressButton({email,password, confirmPassword, fullName, address, mobile, type: e.target.value})
+        }
+        else {
+            onPressButton({email, password, type: e.target.value})
+        }
+        console.log("rrr", isErrorAvailable);
+    }
     render() { 
-        const { isModalOpen, toggleModal, type, errorMessage, onPressButton } = this.props
-        
+        const { isModalOpen, toggleModal, type } = this.props
+        const { errorMessage, isErrorAvailable } = this.state
+        // if(!isErrorAvailable) {
+        //     // there is no error. close and reset values
+        //     // this.clearFields()
+        //     toggleModal()
+        // }
         return ( 
             <Modal isOpen={isModalOpen} toggle={toggleModal} style={{border: 0}}>
                 <ModalHeader toggle={toggleModal}><Label className="title">{type}</Label></ModalHeader>
@@ -68,7 +107,7 @@ class modal extends PureComponent {
                     </ModalBody>
                 }
                 <ModalFooter>
-                    <Button style={{backgroundColor: "#F95335", border: 0}} type="submit" onClick={onPressButton}  className="buttonStyle" >{type}</Button>{' '}
+                    <Button style={{backgroundColor: "#F95335", border: 0}} type="submit" onClick={this.onClickAction}  className="buttonStyle" value={type} >{type}</Button>{' '}
                 </ModalFooter>
             </Modal>
         );
