@@ -9,7 +9,6 @@ import logo from '../../images/logo2.jpg';
 import Divider from '@material-ui/core/Divider';
 import Modal from "../../components/modal/modal"
 import InputButton from "../../components/inputButton/inputButton"
-// test
 class productList extends React.Component {
     constructor(props) {
         super(props);
